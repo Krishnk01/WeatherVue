@@ -1,0 +1,373 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+:root {
+    --primary-color: #2196f3;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+.dark-mode {
+    --text-color: #fff;
+    --bg-color: #1a1a1a;
+    --card-bg: rgba(30, 30, 30, 0.7);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    transition: var(--transition);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    margin: 1.5rem 0;
+    transition: var(--transition);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px var(--shadow-color);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-box {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#search-input {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    min-width: 250px;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.theme-toggle {
+    position: relative;
+}
+
+#theme-switch {
+    display: none;
+}
+
+.toggle-label {
+    width: 60px;
+    height: 30px;
+    background: var(--primary-color);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.toggle-label::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    left: 3px;
+    transition: var(--transition);
+}
+
+#theme-switch:checked + .toggle-label::after {
+    transform: translateX(30px);
+}
+
+.current-weather {
+    text-align: center;
+}
+
+.temperature {
+    font-size: 4rem;
+    margin: 1rem 0;
+}
+
+.weather-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hourly-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    scrollbar-width: thin;
+}
+
+.weather-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    margin-top: 1rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background: var(--hover-color);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.weather-panel {
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.chart-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.chart-controls select {
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.chart-controls select:hover {
+    background: var(--hover-color);
+}
+
+.temperature-graph,
+.precipitation-graph,
+.wind-graph,
+.aqi-graph,
+.uv-graph,
+.sun-graph {
+    width: 100%;
+    height: 300px;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.temperature-details,
+.precipitation-details,
+.wind-details,
+.aqi-details,
+.uv-details,
+.sun-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 15px;
+    transition: var(--transition);
+}
+
+.detail:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.detail .label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.detail .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.current-temp {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.temp-range {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.temp-range span {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.loading-screen.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--card-bg);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        flex-wrap: wrap;
+    }
+
+    #search-input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .weather-info {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .temperature {
+        font-size: 3rem;
+    }
+
+    .forecast {
+        height: 300px;
+        position: relative;
+    }
+
+    .forecast canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

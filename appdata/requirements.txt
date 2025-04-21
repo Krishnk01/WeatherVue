@@ -1,0 +1,4 @@
+# WeatherVue Dependencies
+requests>=2.31.0  # For making HTTP requests to OpenWeatherMap API
+flask>=3.0.0    # For serving the application (optional)
+python-dotenv>=1.0.0  # For managing environment variables and API keys

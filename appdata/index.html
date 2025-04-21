@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <header>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="toggle-label">
+                    <span class="sun">☀️</span>
+                    <span class="moon">🌙</span>
+                </label>
+            </div>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search for a city...">
+                <button id="search-btn">Search</button>
+                <button id="location-btn" title="Use current location">📍</button>
+            </div>
+            <div class="weather-tabs">
+                <button class="tab-btn active" data-tab="temperature">Temperature</button>
+                <button class="tab-btn" data-tab="precipitation">Precipitation</button>
+                <button class="tab-btn" data-tab="wind">Wind</button>
+                <button class="tab-btn" data-tab="air-quality">Air Quality</button>
+                <button class="tab-btn" data-tab="uv-index">UV Index</button>
+                <button class="tab-btn" data-tab="sun">Sunset/Sunrise</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="tab-content active" id="temperature-tab">
+                <section class="weather-panel glass-card">
+                    <h2 class="city-name">Loading...</h2>
+                    <div class="temperature-graph">
+                        <div class="chart-controls">
+                            <select id="temp-chart-type" onchange="createChart('temp-chart', this.value, charts['temp-chart'].data, charts['temp-chart'].options)">
+                                <option value="line">Line Graph</option>
+                                <option value="bar">Bar Graph</option>
+                            </select>
+                        </div>
+                        <canvas id="temp-chart"></canvas>
+                    </div>
+                    <div class="temperature-details">
+                        <div class="current-temp">
+                            <img class="weather-icon" src="" alt="weather icon">
+                            <h1 class="temperature">--°C</h1>
+                            <p class="feels-like">Feels like: --°C</p>
+                            <p class="condition-text">--</p>
+                        </div>
+                        <div class="temp-range">
+                            <span class="high">High: --°C</span>
+                            <span class="low">Low: --°C</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="precipitation-tab">
+                <section class="weather-panel glass-card">
+                    <h2>Precipitation</h2>
+                    <div class="precipitation-graph">
+                        <div class="chart-controls">
+                            <select id="precip-chart-type" onchange="createChart('precip-chart', this.value, charts['precip-chart'].data, charts['precip-chart'].options)">
+                                <option value="line">Line Graph</option>
+                                <option value="bar">Bar Graph</option>
+                            </select>
+                        </div>
+                        <canvas id="precip-chart"></canvas>
+                    </div>
+                    <div class="precipitation-details">
+                        <div class="detail">
+                            <span class="label">Chance of Rain</span>
+                            <span class="value rain-chance">--%</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Amount</span>
+                            <span class="value precip-amount">-- mm</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="wind-tab">
+                <section class="weather-panel glass-card">
+                    <h2>Wind Conditions</h2>
+                    <div class="wind-graph">
+                        <div class="chart-controls">
+                            <select id="wind-chart-type" onchange="createChart('wind-chart', this.value, charts['wind-chart'].data, charts['wind-chart'].options)">
+                                <option value="line">Line Graph</option>
+                                <option value="bar">Bar Graph</option>
+                            </select>
+                        </div>
+                        <canvas id="wind-chart"></canvas>
+                    </div>
+                    <div class="wind-details">
+                        <div class="detail">
+                            <span class="label">Speed</span>
+                            <span class="value wind-speed">-- m/s</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Direction</span>
+                            <span class="value wind-direction">--</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Gusts</span>
+                            <span class="value wind-gusts">-- m/s</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="air-quality-tab">
+                <section class="weather-panel glass-card">
+                    <h2>Air Quality</h2>
+                    <div class="aqi-graph">
+                        <canvas id="aqi-chart"></canvas>
+                    </div>
+                    <div class="aqi-details">
+                        <div class="detail">
+                            <span class="label">AQI</span>
+                            <span class="value aqi-value">--</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">PM2.5</span>
+                            <span class="value pm25-value">-- µg/m³</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">PM10</span>
+                            <span class="value pm10-value">-- µg/m³</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="uv-index-tab">
+                <section class="weather-panel glass-card">
+                    <h2>UV Index</h2>
+                    <div class="uv-graph">
+                        <div class="chart-controls">
+                            <select id="uv-chart-type" onchange="createChart('uv-chart', this.value, charts['uv-chart'].data, charts['uv-chart'].options)">
+                                <option value="line">Line Graph</option>
+                                <option value="bar">Bar Graph</option>
+                            </select>
+                        </div>
+                        <canvas id="uv-chart"></canvas>
+                    </div>
+                    <div class="uv-details">
+                        <div class="detail">
+                            <span class="label">Current UV Index</span>
+                            <span class="value uv-value">--</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Max UV Index</span>
+                            <span class="value uv-max">--</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="sun-tab">
+                <section class="weather-panel glass-card">
+                    <h2>Sun Schedule</h2>
+                    <div class="sun-graph">
+                        <div class="chart-controls">
+                            <select id="sun-chart-type" onchange="createChart('sun-chart', this.value, charts['sun-chart'].data, charts['sun-chart'].options)">
+                                <option value="line">Line Graph</option>
+                                <option value="bar">Bar Graph</option>
+                            </select>
+                        </div>
+                        <canvas id="sun-chart"></canvas>
+                    </div>
+                    <div class="sun-details">
+                        <div class="detail">
+                            <span class="label">Sunrise</span>
+                            <span class="value sunrise">--:--</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Sunset</span>
+                            <span class="value sunset">--:--</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Day Length</span>
+                            <span class="value day-length">--:--</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
