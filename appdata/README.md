@@ -30,7 +30,7 @@ WeatherVue is a sleek, interactive weather dashboard that provides comprehensive
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/WeatherVue.git
+   git clone https://github.com/Krishnk01/WeatherVue.git
    ```
 
 2. Navigate to the project directory:
